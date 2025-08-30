@@ -26,6 +26,10 @@ public class StudentService {
 
     public StudentResponseDTO saveUser(CreateStudentDTO studentDTO) {
 
+        if(studentDTO.getUsername().trim().isEmpty() || studentDTO.getPassword().trim().isEmpty()) {
+            return null;
+        }
+
         User user = new User();
         user.setUsername(studentDTO.getUsername());
         user.setPassword(studentDTO.getPassword());

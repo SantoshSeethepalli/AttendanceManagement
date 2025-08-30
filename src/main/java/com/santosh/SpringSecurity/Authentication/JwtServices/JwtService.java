@@ -1,6 +1,5 @@
 package com.santosh.SpringSecurity.Authentication.JwtServices;
 
-import com.santosh.SpringSecurity.Application.model.Role;
 import com.santosh.SpringSecurity.Authentication.model.UserPrincipal;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,9 +17,6 @@ public class JwtService {
 
     @Value("${security.jwt.secret-key}")
     private String secretKey;
-
-    @Value("${security.jwt.expiration-time}")
-    private long jwtExpiration;
 
     public SecretKey getSigningKey() {
 
@@ -45,7 +41,7 @@ public class JwtService {
                 .add(claims)
                 .subject(String.valueOf(userId))
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60))
                 .and()
                 .signWith(getSigningKey())
                 .compact();
